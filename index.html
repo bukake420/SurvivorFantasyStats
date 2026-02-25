@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Survivor 50 · In the Hands of the Fans</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#D4A853;--goldl:#F0C96A;--cream:#F0E6CC;
+  --deep:#090E13;--jungle:#131E17;--panel:#101820;
+  --border:rgba(255,255,255,.07);--muted:#6B7E8A;
+  --cila:#4A7FD4;--kalo:#D44A3A;--vatu:#4AAD52;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--deep);color:var(--cream);font-family:'Raleway',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 70% 55% at 10% 40%,rgba(19,30,23,.55) 0%,transparent 70%),
+             radial-gradient(ellipse 50% 35% at 90% 5%,rgba(212,168,83,.04) 0%,transparent 60%),
+             radial-gradient(ellipse 60% 30% at 50% 105%,rgba(255,107,26,.07) 0%,transparent 50%);}
+
+/* ── HEADER ── */
+header{position:relative;z-index:5;text-align:center;padding:52px 24px 42px;
+  border-bottom:1px solid rgba(212,168,83,.13);
+  background:linear-gradient(180deg,rgba(9,14,19,.99) 0%,rgba(19,30,23,.18) 100%);}
+.season-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:7px;color:var(--gold);
+  opacity:.65;text-transform:uppercase;margin-bottom:12px;}
+.flame{font-size:26px;animation:flicker 3s ease-in-out infinite alternate;display:inline-block;}
+@keyframes flicker{0%,100%{opacity:1;transform:scaleY(1);}40%{opacity:.8;transform:scaleY(.95) translateY(1px);}70%{opacity:.92;}}
+h1{font-family:'Cinzel Decorative',serif;font-size:clamp(24px,5vw,58px);font-weight:900;
+  line-height:1.1;letter-spacing:1px;color:var(--cream);margin:7px 0;
+  text-shadow:0 0 90px rgba(212,168,83,.3),0 2px 8px rgba(0,0,0,.9);}
+.subtitle{font-family:'Cinzel',serif;font-size:clamp(9px,1.7vw,13px);color:var(--gold);
+  letter-spacing:5px;opacity:.6;text-transform:uppercase;margin-top:9px;}
+.hchips{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:20px;}
+.chip{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--muted);
+  border:1px solid rgba(107,126,138,.2);padding:4px 13px;border-radius:20px;}
+
+/* ── CONTROLS BAR ── */
+.controls-bar{position:sticky;top:0;z-index:50;background:rgba(9,14,19,.97);
+  backdrop-filter:blur(18px);border-bottom:1px solid rgba(212,168,83,.09);}
+.ctrl-row{padding:10px 24px;display:grid;grid-template-columns:120px 1fr 120px;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.04);}
+.ctrl-row .pills{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;}
+.ctrl-row.together-row{display:flex;flex-wrap:wrap;align-items:center;gap:7px;border-top:1px solid rgba(212,168,83,.12);border-bottom:none;padding:10px 24px;}
+.cl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:var(--gold);
+  opacity:.55;white-space:nowrap;text-transform:uppercase;min-width:72px;}
+.pills{display:flex;gap:7px;flex-wrap:wrap;flex:1;}
+.pill{padding:4px 13px;border-radius:20px;border:1px solid rgba(255,255,255,.11);
+  background:transparent;color:rgba(240,230,204,.7);font-family:'Cinzel',serif;
+  font-size:9px;letter-spacing:2px;cursor:pointer;transition:all .18s;text-transform:uppercase;
+  white-space:nowrap;}
+.pill:hover{border-color:rgba(212,168,83,.5);color:var(--gold);}
+.pill.active{border-color:var(--gold);color:var(--gold);background:rgba(212,168,83,.1);}
+.pill.active.t-Cila{border-color:var(--cila);color:var(--cila);background:rgba(74,127,212,.13);}
+.pill.active.t-Kalo{border-color:var(--kalo);color:var(--kalo);background:rgba(212,74,58,.13);}
+.pill.active.t-Vatu{border-color:var(--vatu);color:var(--vatu);background:rgba(74,173,82,.13);}
+/* together group pills get colored by data attr */
+.pill.active.grp{border-color:var(--goldl);color:var(--goldl);background:rgba(240,201,106,.1);}
+.search-wrap{position:relative;}
+.search-wrap input{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;padding:6px 17px 6px 34px;color:var(--cream);font-family:'Raleway',sans-serif;
+  font-size:12px;width:200px;outline:none;transition:border-color .2s;}
+.search-wrap input:focus{border-color:rgba(212,168,83,.4);}
+.search-wrap input::placeholder{color:var(--muted);opacity:.45;}
+.search-wrap::before{content:'⌕';position:absolute;left:11px;top:50%;transform:translateY(-50%);
+  color:var(--muted);font-size:16px;pointer-events:none;}
+
+/* sort row */
+.sort-select{padding:4px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.11);
+  background:#0e1a22;color:rgba(240,230,204,.85);font-family:'Cinzel',serif;
+  font-size:9px;letter-spacing:2px;cursor:pointer;outline:none;appearance:none;
+  padding-right:26px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236B7E8A'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;}
+.sort-select option{background:#0e1a22;color:#F0E6CC;}
+.sort-dir{padding:4px 11px;border-radius:20px;border:1px solid rgba(255,255,255,.11);
+  background:transparent;color:rgba(240,230,204,.6);font-family:'Cinzel',serif;font-size:10px;
+  cursor:pointer;transition:all .18s;letter-spacing:1px;}
+.sort-dir:hover,.sort-dir.active{border-color:rgba(212,168,83,.4);color:var(--gold);}
+.results-count{font-family:'Cinzel',serif;font-size:9px;
+  letter-spacing:2px;color:var(--muted);opacity:.6;}
+
+/* ── GRID ── */
+.cast-section{position:relative;z-index:1;max-width:1440px;margin:0 auto;padding:44px 26px 80px;}
+.sec-h{font-family:'Cinzel',serif;font-size:9px;letter-spacing:5px;color:var(--gold);opacity:.5;
+  text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.sec-h::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(212,168,83,.22),transparent);}
+.cast-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:18px;}
+
+/* ── CARD ── */
+.card{position:relative;border-radius:11px;overflow:hidden;cursor:pointer;
+  border:1px solid var(--border);background:rgba(255,255,255,.022);
+  transition:transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .28s;animation:fadeUp .4s ease both;}
+.card.hidden{display:none!important;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.card:hover{transform:translateY(-8px) scale(1.024);
+  box-shadow:0 22px 65px rgba(0,0,0,.6),0 0 0 1px rgba(212,168,83,.32);z-index:3;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;z-index:2;}
+.card[data-tribe="Cila"]::before{background:linear-gradient(90deg,#2A5BB0,#6096E8);}
+.card[data-tribe="Kalo"]::before{background:linear-gradient(90deg,#B03020,#E06050);}
+.card[data-tribe="Vatu"]::before{background:linear-gradient(90deg,#2A7A30,#50C060);}
+.cimg{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--jungle);}
+.cimg img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .38s;}
+.card:hover .cimg img{transform:scale(1.07);}
+.cimg::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 42%,rgba(9,14,19,.92) 100%);}
+.crown{position:absolute;top:9px;right:9px;z-index:3;font-size:17px;
+  filter:drop-shadow(0 1px 5px rgba(0,0,0,.8));}
+.cinfo{position:absolute;bottom:0;left:0;right:0;padding:11px 13px;z-index:2;}
+.cname{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:var(--cream);
+  line-height:1.2;text-shadow:0 1px 5px rgba(0,0,0,.9);}
+.cmeta{font-size:9px;color:var(--gold);opacity:.68;margin-top:3px;letter-spacing:.4px;}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;vertical-align:middle;}
+.dot-Cila{background:var(--cila);}.dot-Kalo{background:var(--kalo);}.dot-Vatu{background:var(--vatu);}
+.no-results{grid-column:1/-1;text-align:center;padding:80px 0;
+  font-family:'Cinzel',serif;font-size:13px;color:var(--muted);letter-spacing:2px;}
+
+/* ── MODAL ── */
+.overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(4,8,12,.9);
+  backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:16px;overflow-y:auto;}
+.overlay.open{display:flex;}
+.modal{position:relative;width:100%;max-width:860px;border-radius:15px;overflow:hidden;
+  background:var(--panel);border:1px solid rgba(212,168,83,.18);
+  box-shadow:0 40px 120px rgba(0,0,0,.75);animation:mIn .28s cubic-bezier(.34,1.4,.64,1) both;}
+@keyframes mIn{from{opacity:0;transform:scale(.92) translateY(18px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.mbar{height:4px;}
+.mbar.Cila{background:linear-gradient(90deg,#2A5BB0,#6096E8,#2A5BB0);}
+.mbar.Kalo{background:linear-gradient(90deg,#B03020,#E06050,#B03020);}
+.mbar.Vatu{background:linear-gradient(90deg,#2A7A30,#50C060,#2A7A30);}
+.mbody{display:grid;grid-template-columns:270px 1fr;}
+@media(max-width:620px){.mbody{grid-template-columns:1fr;}}
+.mimgcol{position:relative;min-height:360px;background:var(--jungle);}
+.mimgcol img{width:100%;height:100%;min-height:360px;object-fit:cover;object-position:top center;display:block;}
+.mimgcol::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 55%,var(--panel) 100%),
+             linear-gradient(0deg,rgba(9,14,19,.5) 0%,transparent 40%);}
+@media(max-width:620px){.mimgcol img{min-height:220px;max-height:270px;}
+  .mimgcol::after{background:linear-gradient(0deg,var(--panel) 0%,transparent 55%);}}
+.mcol{padding:26px 26px 26px 22px;overflow-y:auto;max-height:560px;}
+.mnav{position:fixed;top:50%;transform:translateY(-50%);z-index:210;background:rgba(0,0,0,.55);
+  border:1.5px solid rgba(212,168,83,.35);color:var(--gold);font-size:1.6rem;line-height:1;
+  width:48px;height:64px;border-radius:8px;cursor:pointer;transition:background .2s,color .2s;
+  display:flex;align-items:center;justify-content:center;}
+.mnav:hover{background:rgba(212,168,83,.25);color:#fff;}
+.mprev{left:12px;}.mnext{right:12px;}
+@media(max-width:600px){.mnav{width:36px;height:50px;font-size:1.2rem;}.mprev{left:4px;}.mnext{right:4px;}}
+.mclose{position:absolute;top:13px;right:14px;z-index:10;background:rgba(0,0,0,.45);
+  border:1px solid rgba(255,255,255,.11);color:var(--cream);font-size:17px;line-height:1;
+  width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;}
+.mclose:hover{background:rgba(212,168,83,.2);}
+.tpill{display:inline-flex;align-items:center;font-family:'Cinzel',serif;font-size:8px;
+  letter-spacing:3px;text-transform:uppercase;padding:3px 10px;border-radius:10px;margin-bottom:9px;}
+.tpill.Cila{background:rgba(74,127,212,.18);color:var(--cila);border:1px solid rgba(74,127,212,.28);}
+.tpill.Kalo{background:rgba(212,74,58,.18);color:var(--kalo);border:1px solid rgba(212,74,58,.28);}
+.tpill.Vatu{background:rgba(74,173,82,.18);color:var(--vatu);border:1px solid rgba(74,173,82,.28);}
+.mname{font-family:'Cinzel Decorative',serif;font-size:clamp(16px,2.8vw,22px);font-weight:700;
+  color:var(--cream);line-height:1.15;margin-bottom:12px;}
+.biog{display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;margin-bottom:16px;}
+.bl{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.bv{font-size:12px;color:var(--cream);font-weight:500;}
+.div{height:1px;background:rgba(212,168,83,.1);margin:14px 0;}
+.sh{font-family:'Cinzel',serif;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);opacity:.55;margin-bottom:11px;}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px;}
+.sbox{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:11px 8px;text-align:center;}
+.snum{font-family:'Cinzel Decorative',serif;font-size:20px;font-weight:700;color:var(--goldl);line-height:1;margin-top:4px;}
+.slbl{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#ffffff;margin-bottom:2px;}
+.slist{display:flex;flex-direction:column;gap:5px;}
+.srow{display:flex;align-items:center;background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.05);border-radius:7px;padding:8px 11px;gap:9px;}
+.srn{font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:var(--muted);min-width:28px;}
+.srname{flex:1;font-size:11px;color:var(--cream);}
+.srp{font-family:'Cinzel',serif;font-size:10px;color:var(--gold);font-weight:600;}
+.srp.win{color:var(--goldl);}
+.blurb{font-size:12px;line-height:1.72;color:rgba(240,230,204,.72);font-style:italic;}
+.section-divider{border:none;border-top:1px solid rgba(212,168,83,.15);margin:16px 0;}
+.section-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:var(--gold);opacity:.7;text-transform:uppercase;margin-bottom:8px;}
+.life-bio{font-size:12px;line-height:1.78;color:rgba(240,230,204,.82);}
+.video-wrap{position:relative;width:100%;padding-bottom:56.25%;border-radius:10px;overflow:hidden;background:#000;margin-top:4px;}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+.video-note{font-size:10px;color:var(--muted);opacity:.5;text-align:center;margin-top:6px;font-family:'Raleway',sans-serif;}
+.parade-link{display:inline-flex;align-items:center;gap:7px;background:rgba(212,168,83,.1);border:1px solid rgba(212,168,83,.3);border-radius:20px;padding:8px 16px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:var(--gold);text-decoration:none;margin-bottom:12px;transition:background .2s,border-color .2s;}
+.parade-link:hover{background:rgba(212,168,83,.2);border-color:rgba(212,168,83,.6);}
+.together-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;}
+.gtag{font-size:9px;font-family:'Cinzel',serif;letter-spacing:1px;padding:2px 9px;
+  border-radius:10px;border:1px solid rgba(240,201,106,.3);background:rgba(240,201,106,.07);color:var(--goldl);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="season-label">Season 50 · CBS · Premieres Feb 25, 2026</div>
+  <div class="flame">🔥</div>
+  <h1>Survivor 50</h1>
+  <div class="subtitle">In the Hands of the Fans</div>
+  <div class="hchips">
+    <div class="chip">24 Returning Players</div>
+    <div class="chip">3 Tribes</div>
+    <div class="chip">Fiji · 25th Anniversary</div>
+  </div>
+</header>
+
+<div class="controls-bar">
+  <!-- ROW 1: Tribe filter -->
+  <div class="ctrl-row" style="display:flex;justify-content:center;gap:10px;">
+
+    <div class="pills" id="tribe-pills">
+      <button class="pill active" data-f="All">All</button>
+      <button class="pill t-Cila" data-f="Cila">🔵 Cila</button>
+      <button class="pill t-Kalo" data-f="Kalo">🔴 Kalo</button>
+      <button class="pill t-Vatu" data-f="Vatu">🟢 Vatu</button>
+    </div>
+  </div>
+  <!-- ROW 2: Sort -->
+  <div class="ctrl-row" style="display:flex;justify-content:center;gap:10px;">
+
+    <div class="pills">
+      <select class="sort-select" id="sort-key">
+        <option value="default">Default (Tribe)</option>
+        <option value="name">Name (A–Z)</option>
+        <option value="age">Age</option>
+        <option value="days">Total Days Played</option>
+        <option value="played">Times Played</option>
+        <option value="icWins">Challenge Wins</option>
+        <option value="idols">Idols Found</option>
+        <option value="juryVotes">Jury Votes Received</option>
+      </select>
+      <button class="sort-dir active" id="sort-asc" title="Ascending">↑ ASC</button>
+      <button class="sort-dir" id="sort-desc" title="Descending">↓ DESC</button>
+    </div>
+  </div>
+  <!-- ROW 3: Played Together -->
+  <div class="ctrl-row together-row">
+    <span class="cl">Played Together</span>
+    <div class="pills" id="group-pills">
+      <button class="pill active" data-g="All">All</button>
+      <button class="pill grp" data-g="Micronesia">Micronesia (S16)</button>
+      <button class="pill grp" data-g="HeroesVillains">Heroes vs. Villains (S20)</button>
+      <button class="pill grp" data-g="SouthPacific">South Pacific (S23)</button>
+      <button class="pill grp" data-g="DavidGoliath">David vs. Goliath (S37)</button>
+      <button class="pill grp" data-g="GameChangers">Game Changers (S34)</button>
+      <button class="pill grp" data-g="EdgeExtinction">Edge of Extinction (S38)</button>
+      <button class="pill grp" data-g="WinnersAtWar">Winners at War (S40)</button>
+      <button class="pill grp" data-g="S48">Season 48</button>
+      <button class="pill grp" data-g="S49">Season 49</button>
+      <button class="pill grp" data-g="MultiTimers">3+ Time Players</button>
+      <button class="pill grp" data-g="Winners">Past Winners</button>
+    </div>
+  </div>
+</div>
+
+<section class="cast-section">
+  <div class="sec-h">The Castaways</div>
+  <div class="cast-grid" id="grid"></div>
+</section>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <button class="mnav mprev" id="mprev">&#8592;</button>
+  <div class="modal">
+    <div class="mbar" id="mbar"></div>
+    <button class="mclose" id="mclose">✕</button>
+    <div class="mbody">
+      <div class="mimgcol"><img id="mimg" src="" alt=""></div>
+      <div class="mcol" id="mcol"></div>
+    </div>
+  </div>
+  <button class="mnav mnext" id="mnext">&#8594;</button>
+</div>
+
+<script src="photos.js"></script>
+<script>
+// Photo helper — tries Wikipedia Commons first, falls back to a styled placeholder
+// Wikipedia Commons DOES allow hotlinking from external pages
+const WP = "https://upload.wikimedia.org/wikipedia/commons/thumb/";
+const PH = (name,tribe) => {
+  const c = tribe==='Cila'?'1A2E1A':tribe==='Kalo'?'2E1A1A':'1A1A2E';
+  return `https://placehold.co/300x400/${c}/D4A853?text=${encodeURIComponent(name)}`;
+};
+
+const players = [
+
+// ── CILA ──────────────────────────────────────────────────────────────────────
+{id:"jenna",name:"Jenna Lewis-Dougherty",nick:"Jenna",tribe:"Cila",age:47,
+ hometown:"Franklin, NH",job:"Realtor",winner:false,
+  photo:PHOTOS["jenna"],
+ groups:[],
+ seasons:[{n:1,s:"Borneo",p:"8th"},{n:8,s:"All-Stars",p:"3rd"}],
+ stats:{played:2,days:62,best:"3rd (All-Stars)",icWins:2,idols:0,juryVotes:0},
+ life:"Jenna Lewis grew up in rural New Hampshire and was just 22 years old when she was cast on the very first season of Survivor. After Borneo she became a media personality, appeared in early reality TV circles, and later married fellow S1 castaway Tom Buchanan's son. She went on to have children and built a career in real estate back in New England. Her return for All-Stars in 2004 marked one of the show's most beloved early redemption arcs. Two decades later she re-enters the game as a mother, businesswoman, and living piece of Survivor history.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/jenna-lewis-dougherty-survivor-50-interview",
+ blurb:"The original Survivor icon returns after a 22-year absence — the longest gap between appearances in show history. Known for her outspoken personality and fan-favorite status from the very first season ever filmed."},
+
+{id:"cirie",name:"Cirie Fields",nick:"Cirie",tribe:"Cila",age:55,
+ hometown:"Jersey City, NJ",job:"Registered Nurse",winner:false,
+  photo:PHOTOS["cirie"],
+ groups:["Micronesia","HeroesVillains","GameChangers","MultiTimers"],
+ seasons:[{n:12,s:"Panama",p:"4th"},{n:16,s:"Micronesia",p:"5th"},{n:20,s:"Heroes vs. Villains",p:"8th"},{n:34,s:"Game Changers",p:"17th"}],
+ stats:{played:4,days:121,best:"4th (Panama)",icWins:1,idols:0,juryVotes:0},
+ life:"Cirie Fields was born and raised in New Jersey, the self-described 'couch potato' who had never gone camping before applying for Survivor on a whim. A registered nurse by trade, she found her calling in taking care of others — both at work and on the island. She is married to H.B. Fields and has three sons. After her four Survivor appearances, she became one of the most beloved figures in reality TV, competed on Big Brother 25, and won the first US season of The Traitors. Off-screen she continues nursing and is a passionate advocate for mental health awareness.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/cirie-fields-survivor-50-interview",
+ blurb:"Widely regarded as the greatest player to never win. Her legendary social game has carried her deep in every season. In Game Changers, she was eliminated without a single vote cast against her. She also won Season 1 of The Traitors US and competed on Big Brother 25. Season 50 is her fifth time playing."},
+
+{id:"ozzy",name:"Ozzy Lusth",nick:"Ozzy",tribe:"Cila",age:44,
+ hometown:"Guanajuato, Mexico",job:"Restaurant/Vinyl Bar Owner",winner:false,
+  photo:PHOTOS["ozzy"],
+ groups:["Micronesia","SouthPacific","GameChangers","MultiTimers"],
+ seasons:[{n:13,s:"Cook Islands",p:"2nd"},{n:16,s:"Micronesia",p:"8th"},{n:23,s:"South Pacific",p:"4th"},{n:34,s:"Game Changers",p:"14th"}],
+ stats:{played:4,days:128,best:"2nd (Cook Islands)",icWins:21,idols:3,juryVotes:0},
+ life:"Oscar 'Ozzy' Lusth was born in Guanajuato, Mexico and raised between Mexico and the United States, developing an extraordinary connection to the outdoors and ocean from a young age. A natural athlete, he built his life around surfing, free diving, and fishing. He has owned and operated restaurants and a vinyl bar. Known for his laid-back charisma and almost supernatural survival skills, Ozzy has become one of the show's most iconic physical players across five seasons spanning nearly two decades.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/ozzy-lusth-survivor-50-interview",
+ blurb:"One of Survivor's all-time challenge beasts. Set records for individual immunity wins in a single season with 5 in Cook Islands. His fishing ability makes him invaluable at camp, but his reputation makes him a perennial target. Season 50 is his fifth time playing."},
+
+{id:"emily",name:"Emily Flippen",nick:"Emily",tribe:"Cila",age:30,
+ hometown:"Laurel, MD",job:"Investment Analyst",winner:false,
+  photo:PHOTOS["emily"],
+ groups:[],
+ seasons:[{n:45,s:"Survivor 45",p:"7th"}],
+ stats:{played:1,days:27,best:"7th (S45)",icWins:2,idols:0,juryVotes:0},
+ life:"Emily Flippen grew up in Maryland and built a high-achieving career as an investment analyst, known for her sharp analytical mind and blunt communication style. Before Survivor 45, she had little experience in social games but applied with total confidence in her intellect. What no one expected — including Emily herself — was the profound personal growth she'd undergo on the island. Her arc from alienating outsider to self-aware fan favorite became one of the most-discussed storylines in recent Survivor history.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/emily-flippen-survivor-50-interview",
+ blurb:"Began Survivor 45 as abrasive and alienating, then underwent one of the most remarkable personal growth arcs in New Era history. Her self-awareness, sharp wit, and genuine transformation made her one of the season's most compelling characters."},
+
+{id:"christian",name:"Christian Hubicki",nick:"Christian",tribe:"Cila",age:39,
+ hometown:"Baltimore, MD",job:"Robotics Professor",winner:false,
+  photo:PHOTOS["christian"],
+ groups:["DavidGoliath"],
+ seasons:[{n:37,s:"David vs. Goliath",p:"7th"}],
+ stats:{played:1,days:33,best:"7th (David vs. Goliath)",icWins:4,idols:1,juryVotes:0},
+ life:"Christian Hubicki grew up as a self-described nerd who found community and confidence through academics. He earned his PhD in robotics and went on to become a professor at Johns Hopkins University, specializing in legged locomotion and machine learning. He has been open about his experiences with OCD and has used his platform to advocate for mental health. His time on David vs. Goliath made him a cult favorite, beloved for his genuine warmth, encyclopedic knowledge, and unforgettable personality.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/christian-hubicki-survivor-50-interview",
+ blurb:"The beloved robotics professor who famously stalled a Tribal Council vote with a 40-minute word-association game. His intelligence, charm, and iconic bond with Nick White made him a standout player. Now a professor at Johns Hopkins."},
+
+{id:"rick",name:"Rick Devens",nick:"Devens",tribe:"Cila",age:42,
+ hometown:"Macon, GA",job:"Communications Director / Podcast Host",winner:false,
+  photo:PHOTOS["rick"],
+ groups:["EdgeExtinction"],
+ seasons:[{n:38,s:"Edge of Extinction",p:"4th"}],
+ stats:{played:1,days:35,best:"4th (Edge of Extinction)",icWins:5,idols:2,juryVotes:0},
+ life:"Rick Devens spent over a decade as a television news anchor in Macon, Georgia, becoming a familiar and trusted face in his community. He is married with children and known for his quick wit and ability to connect with almost anyone. After his jaw-dropping run on Edge of Extinction, he parlayed his Survivor fame into co-hosting the official CBS Survivor podcast 'On Fire' with Jeff Probst — making him the only former contestant to hold an ongoing official role with the franchise.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/rick-devens-survivor-50-interview",
+ blurb:"Voted out early, re-entered via Edge of Extinction, then became an unstoppable idol-finding, challenge-winning force. His hilarious confessionals and underdog story made him a fan favorite. He now co-hosts the official Survivor podcast 'On Fire' with Jeff Probst."},
+
+{id:"savannah",name:"Savannah Louie",nick:"Savannah",tribe:"Cila",age:25,
+ hometown:"California",job:"Graduate Student",winner:true,
+  photo:PHOTOS["savannah"],
+ groups:["S49","Winners"],
+ seasons:[{n:49,s:"Survivor 49",p:"WINNER 👑"}],
+ stats:{played:1,days:26,best:"Winner (S49)",icWins:2,idols:1,juryVotes:7},
+ life:"Savannah Louie is one of the youngest Sole Survivors in recent memory, winning at just 25 years old while still completing her graduate degree. Originally from California, she brought an intense competitive drive and genuine strategic instincts to Season 49. Her story is made even more remarkable by the fact that she agreed to return for Season 50 just two weeks after winning — barely enough time to celebrate before heading back to the island.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/savannah-louie-survivor-50-interview",
+ blurb:"The most recent Sole Survivor. Savannah won Season 49 and agreed to return just two weeks later — one of the fastest turnarounds in show history. She beat ally Rizo in fire-making, then delivered a compelling Final Tribal performance to earn a 7-1 jury vote."},
+
+{id:"joe",name:"Joe Hunter",nick:"Joe",tribe:"Cila",age:33,
+ hometown:"Texas",job:"Bodyguard / Personal Trainer",winner:false,
+  photo:PHOTOS["joe"],
+ groups:["S48"],
+ seasons:[{n:48,s:"Survivor 48",p:"3rd"}],
+ stats:{played:1,days:24,best:"3rd (S48)",icWins:3,idols:0,juryVotes:0},
+ life:"Joe Hunter is a Texas-based bodyguard and personal trainer whose imposing physical presence masks a deeply empathetic soul. Before Survivor he worked in personal protection and built a reputation as someone who leads with strength but always with compassion. His Season 48 moment supporting castaway Eva Erickson through an autistic episode went viral and introduced him to millions of viewers who had never seen that kind of raw emotional leadership on a reality show.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/joe-hunter-survivor-50-interview",
+ blurb:"Went viral for compassionately supporting fellow castaway Eva Erickson during an autistic episode on the island. His empathetic leadership and physical strength carried him to 3rd place in Season 48, making him one of the most genuinely liked players in recent memory."},
+
+// ── KALO ──────────────────────────────────────────────────────────────────────
+{id:"tiffany",name:"Tiffany Ervin",nick:"Tiffany",tribe:"Kalo",age:47,
+ hometown:"New York, NY",job:"Entrepreneur",winner:false,
+  photo:PHOTOS["tiffany"],
+ groups:[],
+ seasons:[{n:46,s:"Survivor 46",p:"8th"}],
+ stats:{played:1,days:21,best:"8th (S46)",icWins:1,idols:1,juryVotes:0},
+ life:"Tiffany Ervin is a New York City entrepreneur who built her career through hustle and reinvention, navigating multiple business ventures while raising a family. Known for her infectious energy and quick emotions, she brought an authenticity to Season 46 that resonated with fans. Her unfiltered reactions and big personality made her a breakout star, even if her game became increasingly difficult to rein in late in the season.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/tiffany-ervin-survivor-50-interview",
+ blurb:"One of the most entertaining New Era players. Her sharp wit, big emotions, and idol find made her a fan favorite of Season 46, even as her chaotic game became increasingly difficult to control late in the season."},
+
+{id:"coach",name:'Benjamin "Coach" Wade',nick:"Coach",tribe:"Kalo",age:53,
+ hometown:"California",job:"Soccer Coach",winner:false,
+  photo:PHOTOS["coach"],
+ groups:["HeroesVillains","SouthPacific","MultiTimers"],
+ seasons:[{n:18,s:"Tocantins",p:"5th"},{n:20,s:"Heroes vs. Villains",p:"12th"},{n:23,s:"South Pacific",p:"2nd"}],
+ stats:{played:3,days:94,best:"2nd (South Pacific)",icWins:5,idols:1,juryVotes:0},
+ life:"Benjamin Wade — known universally as 'Coach' — grew up with a deep love of mythology, martial arts, and adventure. He has claimed to have survived an Amazon kidnapping, competed in an ultra-marathon, and conducted a symphony orchestra. A soccer coach by profession, he embraced an elaborate warrior persona on Survivor that made him one of the most quoted and parodied contestants in the show's history. Despite his bluster, Coach showed real loyalty and strategic depth in South Pacific, losing narrowly at Final Tribal.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/coach-wade-survivor-50-interview",
+ blurb:"The self-styled 'Dragon Slayer' is one of Survivor's most colorful characters. Known for Tai Chi on the beach, poetic confessionals, and elaborate warrior mythology. In South Pacific he ran a dominant tribal alliance but lost unanimously at Final Tribal to Sophie Clarke."},
+
+{id:"chrissy",name:"Chrissy Hofbeck",nick:"Chrissy",tribe:"Kalo",age:50,
+ hometown:"New Jersey",job:"Actuary",winner:false,
+  photo:PHOTOS["chrissy"],
+ groups:[],
+ seasons:[{n:35,s:"Heroes v Healers v Hustlers",p:"2nd"}],
+ stats:{played:1,days:38,best:"2nd (HHH)",icWins:4,idols:0,juryVotes:2},
+ life:"Chrissy Hofbeck is a New Jersey actuary who built a distinguished career applying mathematical models to risk assessment. A mother and wife, she balanced a demanding professional life with a fierce competitive streak that she channeled into Survivor. Her analytical mind allowed her to dissect tribal dynamics like probability puzzles, and her physical endurance surprised everyone. She has spoken openly about navigating a male-dominated industry and credits Survivor with helping her find her voice.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/chrissy-hofbeck-survivor-50-interview",
+ blurb:"Tied the record for most individual immunity wins by a woman in a season (4) in Heroes vs. Healers vs. Hustlers. She made it to Final Tribal but lost to Ben Driebergen 5-2-1. The jury criticized her social game despite her dominant challenge performance."},
+
+{id:"jonathan",name:"Jonathan Young",nick:"Jonathan",tribe:"Kalo",age:32,
+ hometown:"Gulf Shores, AL",job:"Beach Service Owner",winner:false,
+  photo:PHOTOS["jonathan"],
+ groups:[],
+ seasons:[{n:42,s:"Survivor 42",p:"4th"}],
+ stats:{played:1,days:24,best:"4th (S42)",icWins:9,idols:0,juryVotes:0},
+ life:"Jonathan Young grew up on the Gulf Coast of Alabama where the ocean was his second home. He built his business running beach services — chairs, umbrellas, and water sports — which kept him in peak physical condition year-round. A deeply competitive and ambitious person, he applied to Survivor with one goal: to prove he was the best physical player in the game's history. His Survivor 42 performance nearly made that argument for him. Outside the game, he's known for his big heart and devotion to his community.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/jonathan-young-survivor-50-interview",
+ blurb:"Perhaps the most physically dominant New Era player. Won 9 challenges in a single season and practically single-handedly carried his tribe through the pre-merge. His raw athletic ability is unmatched, but his threat level will be enormous from day one."},
+
+{id:"genevieve",name:"Genevieve Mushaluk",nick:"Genevieve",tribe:"Vatu",age:34,
+ hometown:"Winnipeg, Canada",job:"Lawyer",winner:false,
+  photo:PHOTOS["genevieve"],
+ groups:[],
+ seasons:[{n:47,s:"Survivor 47",p:"2nd"}],
+ stats:{played:1,days:26,best:"2nd (S47)",icWins:3,idols:0,juryVotes:3},
+ life:"Genevieve Mushaluk is a Winnipeg-based lawyer who approached Survivor 47 the way she approaches every case — with meticulous preparation and cool composure. Growing up in Canada, she developed an interest in competitive games and strategy at a young age. Her legal training gave her a unique advantage in negotiation and reading people, which she used to masterful effect on her season. She came within a jury vote or two of winning and returned to her legal career afterward with a much larger fan following.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/genevieve-mushaluk-survivor-50-interview",
+ blurb:"A razor-sharp strategist who maneuvered her way to Final Tribal Council of Survivor 47 but narrowly lost. Her legal mind and calm demeanor helped her build key alliances. Widely regarded as one of the strongest players to not yet win."},
+
+{id:"kyle",name:"Kyle Fraser",nick:"Kyle",tribe:"Vatu",age:31,
+ hometown:"Brooklyn, NY",job:"Defense Attorney",winner:true,
+  photo:PHOTOS["kyle"],
+ groups:["S48","Winners"],
+ seasons:[{n:48,s:"Survivor 48",p:"WINNER 👑"}],
+ stats:{played:1,days:26,best:"Winner (S48)",icWins:4,idols:1,juryVotes:6},
+ life:"Kyle Fraser is a Brooklyn-based defense attorney who grew up navigating tough environments that sharpened his instincts for reading people and thinking on his feet. His legal career built the persuasive skills and emotional control that translated perfectly to Survivor's Final Tribal Council format. He won Season 48 through a combination of physical dominance and composed social maneuvering, impressing a jury that respected both his game and his character.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/kyle-fraser-survivor-50-interview",
+ blurb:"The Season 48 Sole Survivor. Kyle's combination of physical dominance and level-headed strategic play earned him a strong jury victory. He enters Season 50 as a recent winner with an immediate target, but has proven he has all the tools to navigate it."},
+
+{id:"q",name:"Q Burdette",nick:"Q",tribe:"Vatu",age:31,
+ hometown:"Germantown, TN",job:"Real Estate Broker",winner:false,
+  photo:PHOTOS["q"],
+ groups:[],
+ seasons:[{n:46,s:"Survivor 46",p:"4th"}],
+ stats:{played:1,days:24,best:"4th (S46)",icWins:2,idols:0,juryVotes:0},
+ life:"Q Burdette is a Tennessee real estate broker who brings explosive energy to every room he enters. Before Survivor, he built a career selling properties while cultivating a reputation as someone who acts on instinct over caution. That same impulsiveness defined his Season 46 run — twice asking to be voted out, never quite being taken up on the offer. His unpredictable style made him a lightning rod for drama and one of the New Era's most talked-about players.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/q-burdette-survivor-50-interview",
+ blurb:"One of New Era Survivor's most chaotic forces. Twice asked his own tribemates to vote him out, yet survived all the way to 4th place. His unpredictable, impulsive game made Season 46 wilder — and made him one of its most memorable characters."},
+
+{id:"angelina",name:"Angelina Keeley",nick:"Angelina",tribe:"Vatu",age:35,
+ hometown:"San Diego, CA",job:"Entrepreneur / Small Business Owner",winner:false,
+  photo:PHOTOS["angelina"],
+ groups:["DavidGoliath"],
+ seasons:[{n:37,s:"David vs. Goliath",p:"2nd"}],
+ stats:{played:1,days:38,best:"2nd (David vs. Goliath)",icWins:2,idols:1,juryVotes:1},
+ life:"Angelina Keeley is a San Diego-based entrepreneur with a Yale education and a background in finance and consulting. Fiercely ambitious and deeply self-aware, she has always been driven by the desire to prove herself in competitive environments. On David vs. Goliath she played one of the most proactive games of any non-winner, orchestrating moves and negotiating relentlessly — most memorably haggling for a jacket in what became one of the show's most iconic scenes. She is married with children and runs her own business.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/angelina-keeley-survivor-50-interview",
+ blurb:"Made it to the end of David vs. Goliath through creative strategic maneuvering and legendary moments — including her jacket negotiations and a dramatic idol find in a rainstorm. Polarizing but never boring. One of the show's most quotable contestants."},
+
+{id:"rizo",name:"Rizo Velovic",nick:"Rizo",tribe:"Vatu",age:26,
+ hometown:"Yonkers, NY",job:"Tech Sales",winner:false,
+  photo:PHOTOS["rizo"],
+ groups:["S49"],
+ seasons:[{n:49,s:"Survivor 49",p:"5th (8th Juror)"}],
+ stats:{played:1,days:26,best:"5th (S49)",icWins:2,idols:0,juryVotes:0},
+ life:"Rizo Velovic grew up in Yonkers, New York and carved out a career in tech sales before applying to Survivor. Competitive, social, and intensely loyal, he built one of Season 49's strongest bonds with Savannah Louie — a connection that ultimately cost him a million dollars when she beat him at fire-making. His willingness to return for Season 50 just weeks later, now facing his former closest ally as a rival, shows a resilience and competitive hunger that defines his whole approach to the game.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/rizo-velovic-survivor-50-interview",
+ blurb:"Lost the fire-making challenge to close ally Savannah in the Season 49 finale, becoming the final jury member. Had just two weeks between seasons before diving back in. His alliance — and now rivalry — with Savannah Louie is one of Season 50's most compelling storylines."},
+
+// ── VATU ──────────────────────────────────────────────────────────────────────
+{id:"charlie",name:"Charlie Davis",nick:"Charlie",tribe:"Kalo",age:24,
+ hometown:"Boston, MA",job:"Law Student",winner:false,
+  photo:PHOTOS["charlie"],
+ groups:[],
+ seasons:[{n:46,s:"Survivor 46",p:"2nd"}],
+ stats:{played:1,days:26,best:"2nd (S46)",icWins:3,idols:0,juryVotes:5},
+ life:"Charlie Davis was a law student at Boston College when he competed on Survivor 46 at just 24 years old, making him one of the youngest and most strategically mature players of the New Era. He grew up in the Boston area with a love of competition and debate. His legal training gave him a natural edge in constructing arguments and anticipating opponents' moves. Despite narrowly missing the win, his game was so impressive that producers immediately marked him as a future returnee.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/charlie-davis-survivor-50-interview",
+ blurb:"Runner-up of Survivor 46, Charlie orchestrated much of the mid-game and earned five jury votes, narrowly losing to Kenzie Petty. His strategic clarity and social dexterity at just 24 years old marked him as a future force in the game."},
+
+{id:"colby",name:"Colby Donaldson",nick:"Colby",tribe:"Vatu",age:51,
+ hometown:"Austin, TX",job:"Rancher / Welder",winner:false,
+  photo:PHOTOS["colby"],
+ groups:["HeroesVillains","MultiTimers"],
+ seasons:[{n:2,s:"The Australian Outback",p:"2nd"},{n:8,s:"All-Stars",p:"11th"},{n:20,s:"Heroes vs. Villains",p:"9th"}],
+ stats:{played:3,days:98,best:"2nd (Australian Outback)",icWins:9,idols:0,juryVotes:1},
+ life:"Colby Donaldson grew up in Christoval, Texas, raised with a deep connection to ranching, the outdoors, and the values of hard work and loyalty. The original Survivor golden boy became a household name after Australian Outback aired in 2001, parlaying his fame into a TV hosting career including work on Top Shot. He is a skilled welder and rancher who returned to his Texas roots after his TV years. At 51, he arrives on Season 50 as a living legend who younger players have watched since childhood.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/colby-donaldson-survivor-50-interview",
+ blurb:"The original Survivor golden boy. Won a then-record 5 individual immunities in The Australian Outback and was the show's first true icon. His famous decision to take Tina over Keith to the finals remains one of Survivor's most debated strategic choices."},
+
+{id:"stephenie",name:"Stephenie LaGrossa Kendrick",nick:"Stephenie",tribe:"Vatu",age:45,
+ hometown:"Dunedin, FL",job:"Pharmaceutical Sales",winner:false,
+  photo:PHOTOS["stephenie"],
+ groups:["HeroesVillains","MultiTimers"],
+ seasons:[{n:10,s:"Palau",p:"8th"},{n:11,s:"Guatemala",p:"2nd"},{n:20,s:"Heroes vs. Villains",p:"17th"}],
+ stats:{played:3,days:62,best:"2nd (Guatemala)",icWins:7,idols:0,juryVotes:1},
+ life:"Stephenie LaGrossa grew up in Philadelphia and was working in pharmaceutical sales when she first applied to Survivor. Fiercely athletic and mentally tough, she became one of the show's most beloved underdogs after her extraordinary solo run in Palau. She later married fellow NFL player Kyle Kendrick and started a family. Off-screen she has maintained a strong connection to the Survivor community and appeared on The Traitors US Season 1 with fellow castaway Cirie Fields.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/stephenie-lagrossa-kendrick-survivor-50-interview",
+ blurb:"A Survivor legend who became the last surviving member of the decimated Ulong tribe in Palau, losing challenge after challenge until she was completely alone. Returned for Guatemala and fought all the way to 2nd place. Also competed on The Traitors US Season 1 with Cirie."},
+
+{id:"dee",name:"Dee Valladares",nick:"Dee",tribe:"Kalo",age:27,
+ hometown:"Miami, FL",job:"Entrepreneur",winner:true,
+  photo:PHOTOS["dee"],
+ groups:["Winners"],
+ seasons:[{n:45,s:"Survivor 45",p:"WINNER 👑"}],
+ stats:{played:1,days:26,best:"Winner (S45)",icWins:3,idols:0,juryVotes:7},
+ life:"Dee Valladares was born to Cuban immigrant parents in Miami, Florida, and grew up with an entrepreneurial spirit forged by watching her family build a life from nothing. She launched her own business ventures in her early twenties and brought that same drive and fire to Survivor 45, where she completely dominated the game. Dee is known for her bold personality, deep loyalty to chosen allies, and a competitive intensity that she credits to her upbringing and cultural values.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/dee-valladares-survivor-50-interview",
+ blurb:"Winner of Survivor 45 and widely considered one of the best winners of the New Era. Dee built the iron-clad Reba Four alliance and exercised near-total control of the game from start to finish, earning a dominant 7-1 jury vote. Fiery, enthusiastic, and deeply strategic."},
+
+{id:"aubry",name:"Aubry Bracco",nick:"Aubry",tribe:"Vatu",age:39,
+ hometown:"Hampton Falls, NH",job:"Content Creator",winner:false,
+  photo:PHOTOS["aubry"],
+ groups:["GameChangers","EdgeExtinction","MultiTimers"],
+ seasons:[{n:32,s:"Kaôh Rōng",p:"2nd"},{n:34,s:"Game Changers",p:"9th"},{n:38,s:"Edge of Extinction",p:"5th"}],
+ stats:{played:3,days:86,best:"2nd (Kaôh Rōng)",icWins:4,idols:1,juryVotes:2},
+ life:"Aubry Bracco grew up in New England and pursued a career in marketing and content creation after studying at Boston University. Known for her deeply introspective nature and tendency to overthink, Aubry's Survivor journey became a story of self-discovery as much as strategy. She has spoken openly about anxiety and mental health challenges, and credits the show with helping her grow. Now a content creator with a dedicated Survivor fan following, she approaches Season 50 as her most experienced and self-assured self.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/aubry-bracco-survivor-50-interview",
+ blurb:"A deeply cerebral strategist who controlled much of Kaôh Rōng only to narrowly lose at Final Tribal. Her emotional intelligence and ability to read social dynamics make her dangerous. Her resumé and reputation have historically made her a major target on returnee seasons."},
+
+{id:"mike",name:"Mike White",nick:"Mike",tribe:"Kalo",age:54,
+ hometown:"California",job:"Writer / Director (The White Lotus)",winner:false,
+  photo:PHOTOS["mike"],
+ groups:["DavidGoliath"],
+ seasons:[{n:37,s:"David vs. Goliath",p:"2nd"}],
+ stats:{played:1,days:38,best:"2nd (David vs. Goliath)",icWins:2,idols:0,juryVotes:5},
+ life:"Mike White was already a successful Hollywood screenwriter and actor (School of Rock, Enlightened) when he appeared on Survivor: David vs. Goliath in 2018. After the show, his career exploded: he created, wrote, and directed The White Lotus for HBO, winning multiple Emmy Awards and becoming one of the most celebrated showrunners in television. Openly gay and deeply thoughtful, Mike has been candid about his relationship with his father Mel White (a prominent LGBTQ+ activist) and his own spiritual journey. He is almost certainly the most famous person ever cast on Survivor.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/mike-white-survivor-50-interview",
+ blurb:"Already known from School of Rock when he played David vs. Goliath in 2018, Mike is now one of Hollywood's biggest names as the creator of The White Lotus. His selfless social game and subtle strategy made him a beloved runner-up. Likely the most famous person ever cast on Survivor."},
+
+{id:"kamilla",name:"Kamilla Karthigesu",nick:"Kamilla",tribe:"Kalo",age:29,
+ hometown:"Canada",job:"Content Creator",winner:false,
+  photo:PHOTOS["kamilla"],
+ groups:["S48"],
+ seasons:[{n:48,s:"Survivor 48",p:"4th"}],
+ stats:{played:1,days:24,best:"4th (S48)",icWins:2,idols:0,juryVotes:0},
+ life:"Kamilla Karthigesu is a Canadian content creator of Sri Lankan Tamil descent who built a social media presence around lifestyle, travel, and authentic storytelling before competing on Survivor 48. She brought a calm, observational energy to the game that let her navigate conflict without becoming a target. Her composed demeanor and genuine likability helped carry her to 4th place, and her Season 48 experience made her one of the most requested returnees by the fanbase.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/kamilla-karthigesu-survivor-50-interview",
+ blurb:"Made it to the final four of Survivor 48 through sharp social gameplay and an ability to stay out of the crosshairs. Her calm, measured approach and reading of tribal dynamics helped her outlast most of her competition in her debut season."},
+
+
+];;
+
+// ─── RENDER ────────────────────────────────────────────────────────────────────
+const grid = document.getElementById('grid');
+let sortKey = 'default', sortAsc = true, tribeFilter = 'All', groupFilter = 'All';
+
+function goldName(fullName){
+  const parts = fullName.split(' ');
+  return `<span style="color:var(--goldl)">${parts[0]}</span> ${parts.slice(1).join(' ')}`;
+}
+
+function cardStatLabel(p){
+  if(sortKey==='name'||sortKey==='default') return `${p.tribe} · ${p.stats.played}× · ${p.stats.days} days`;
+  if(sortKey==='age') return `${p.tribe} · Age: ${p.age}`;
+  if(sortKey==='days') return `${p.tribe} · ${p.stats.days} total days`;
+  if(sortKey==='played') return `${p.tribe} · Played ${p.stats.played}×`;
+  if(sortKey==='icWins') return `${p.tribe} · ${p.stats.icWins} challenge wins`;
+  if(sortKey==='idols') return `${p.tribe} · ${p.stats.idols} idols found`;
+  if(sortKey==='juryVotes') return `${p.tribe} · ${p.stats.juryVotes} jury votes`;
+  return `${p.tribe} · ${p.stats.played}× · ${p.stats.days} days`;
+}
+
+function sortVal(p){
+  if(sortKey==='default') return p.tribe==='Cila'?0:p.tribe==='Kalo'?1:2;
+  if(sortKey==='name') return p.name.toLowerCase();
+  if(sortKey==='age') return p.age;
+  if(sortKey==='days') return p.stats.days;
+  if(sortKey==='played') return p.stats.played;
+  if(sortKey==='icWins') return p.stats.icWins;
+  if(sortKey==='idols') return p.stats.idols;
+  if(sortKey==='juryVotes') return p.stats.juryVotes;
+  return 0;
+}
+
+function cardVisible(p){
+  const tOk = tribeFilter==='All' || p.tribe===tribeFilter;
+  const gOk = groupFilter==='All' || matchGroup(p, groupFilter);
+  const qOk = true;
+  return tOk && gOk && qOk;
+}
+
+function matchGroup(p, g){
+  if(g==='Winners') return p.winner;
+  if(g==='MultiTimers') return p.stats.played>=3;
+  return p.groups.includes(g);
+}
+
+let filtered=[];
+function render(){
+  const sorted = [...players].sort((a,b)=>{
+    const av=sortVal(a), bv=sortVal(b);
+    if(typeof av==='string') return sortAsc? av.localeCompare(bv):bv.localeCompare(av);
+    return sortAsc? av-bv:bv-av;
+  });
+  filtered=sorted.filter(p=>cardVisible(p));
+  grid.innerHTML='';
+  let vis=0;
+  sorted.forEach((p,i)=>{
+    const show=cardVisible(p);
+    if(!show) return;
+    vis++;
+    const card=document.createElement('div');
+    card.className='card';
+    card.dataset.tribe=p.tribe;
+    card.style.animationDelay=(vis*0.03)+'s';
+    card.innerHTML=`
+      <div class="cimg">
+        <img src="${p.photo}" alt="${p.name}" loading="lazy"
+          onerror="this.onerror=null;this.src='${PH(p.nick,p.tribe)}'">
+        ${p.winner?'<div class="crown">👑</div>':''}
+      </div>
+      <div class="cinfo">
+        <div class="cname">${goldName(p.name)}</div>
+        <div class="cmeta"><span class="dot dot-${p.tribe}"></span>${cardStatLabel(p)}</div>
+      </div>`;
+    card.addEventListener('click',()=>openModal(p));
+    grid.appendChild(card);
+  });
+  if(!vis){
+    const d=document.createElement('div');
+    d.className='no-results';d.textContent='No castaways match.';grid.appendChild(d);
+  }
+
+}
+
+let currentPlayerIndex = -1;
+
+function getVisiblePlayers(){
+  return filtered;
+}
+
+function openModal(p){
+  const vis = getVisiblePlayers();
+  currentPlayerIndex = vis.findIndex(x => x.id === p.id);
+  _renderModal(p);
+}
+
+function navigateModal(dir){
+  const vis = getVisiblePlayers();
+  currentPlayerIndex = (currentPlayerIndex + dir + vis.length) % vis.length;
+  _renderModal(vis[currentPlayerIndex]);
+  document.getElementById('mcol').scrollTop = 0;
+  document.getElementById('overlay').scrollTop = 0;
+}
+
+function _renderModal(p){
+  document.getElementById('mbar').className='mbar '+p.tribe;
+  const img=document.getElementById('mimg');
+  img.src=p.photo;
+  img.onerror=()=>{img.onerror=null;img.src=PH(p.nick,p.tribe);};
+
+  const sHTML=p.seasons.map(s=>`
+    <div class="srow">
+      <span class="srn">S${s.n}</span>
+      <span class="srname">${s.s}</span>
+      <span class="srp ${s.p.includes('WINNER')?'win':''}">${s.p}</span>
+    </div>`).join('');
+
+  const gTags=p.groups.map(g=>{
+    const label={Micronesia:'Micronesia (S16)',HeroesVillains:'Heroes vs. Villains (S20)',
+      SouthPacific:'South Pacific (S23)',GameChangers:'Game Changers (S34)',
+      DavidGoliath:'David vs. Goliath (S37)',EdgeExtinction:'Edge of Extinction (S38)',
+      WinnersAtWar:'Winners at War (S40)',S48:'Season 48',S49:'Season 49',
+      MultiTimers:'3+ Time Player',Winners:'Past Winner'}[g]||g;
+    return `<span class="gtag">${label}</span>`;
+  }).join('');
+
+  document.getElementById('mcol').innerHTML=`
+    <div class="tpill ${p.tribe}">${p.tribe} Tribe</div>
+    <div class="mname">${goldName(p.name)}${p.winner?' 👑':''}</div>
+    <div class="biog">
+      <div><div class="bl">Age</div><div class="bv">${p.age}</div></div>
+      <div><div class="bl">Hometown</div><div class="bv">${p.hometown}</div></div>
+      <div style="grid-column:1/-1"><div class="bl">Occupation</div><div class="bv">${p.job}</div></div>
+    </div>
+    <div class="div"></div>
+    <div class="sh">Career Stats (Prior to Season 50)</div>
+    <div class="sgrid">
+      <div class="sbox"><div class="slbl">Times Played</div><div class="snum">${p.stats.played}</div></div>
+      <div class="sbox"><div class="slbl">Total Days</div><div class="snum">${p.stats.days}</div></div>
+      <div class="sbox"><div class="slbl">IC Wins</div><div class="snum">${p.stats.icWins}</div></div>
+      <div class="sbox"><div class="slbl">Idols Found</div><div class="snum">${p.stats.idols}</div></div>
+      <div class="sbox"><div class="slbl">Jury Votes Rcvd</div><div class="snum">${p.stats.juryVotes}</div></div>
+      <div class="sbox"><div class="slbl">Past Winner</div><div class="snum">${p.winner?'✅':'—'}</div></div>
+    </div>
+    <div class="bl" style="margin-bottom:4px">Best Placement</div>
+    <div class="bv" style="color:var(--goldl);margin-bottom:14px">${p.stats.best}</div>
+    <div class="div"></div>
+    <div class="sh">Seasons Played</div>
+    <div class="slist">${sHTML}</div>
+    ${gTags?`<div class="div"></div><div class="sh">Connections to Other S50 Players</div><div class="together-tags">${gTags}</div>`:''}
+    <div class="div"></div>
+    <div class="sh">Player Bio</div>
+    <div class="blurb">${p.blurb}</div>
+    <hr class="section-divider">
+    <div class="section-label">Life Story</div>
+    <div class="life-bio">${p.life}</div>
+    <hr class="section-divider">
+    <div class="section-label">Season 50 Interview</div>
+    <a href="${p.paradeUrl}" target="_blank" class="parade-link">
+      📰 Read ${p.nick}'s full Parade interview →
+    </a>
+    `;
+
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';currentPlayerIndex=-1;}
+document.getElementById('mclose').addEventListener('click',closeModal);
+document.getElementById('mprev').addEventListener('click',()=>navigateModal(-1));
+document.getElementById('mnext').addEventListener('click',()=>navigateModal(1));
+document.getElementById('overlay').addEventListener('click',e=>{if(e.target===document.getElementById('overlay'))closeModal();});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeModal();
+  if(document.getElementById('overlay').classList.contains('open')){
+    if(e.key==='ArrowLeft')navigateModal(-1);
+    if(e.key==='ArrowRight')navigateModal(1);
+  }
+});
+document.getElementById('mclose').addEventListener('click',closeModal);
+document.getElementById('overlay').addEventListener('click',e=>{if(e.target===document.getElementById('overlay'))closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+// ── TRIBE FILTER ──
+document.getElementById('tribe-pills').addEventListener('click',e=>{
+  const b=e.target.closest('.pill');if(!b)return;
+  document.querySelectorAll('#tribe-pills .pill').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');tribeFilter=b.dataset.f;render();
+});
+
+// ── GROUP FILTER ──
+document.getElementById('group-pills').addEventListener('click',e=>{
+  const b=e.target.closest('.pill');if(!b)return;
+  document.querySelectorAll('#group-pills .pill').forEach(x=>x.classList.remove('active','grp'));
+  b.classList.add('active');
+  if(b.dataset.g!=='All')b.classList.add('grp');
+  groupFilter=b.dataset.g;render();
+});
+
+// ── SORT ──
+document.getElementById('sort-key').addEventListener('change',e=>{sortKey=e.target.value;render();});
+document.getElementById('sort-asc').addEventListener('click',()=>{
+  sortAsc=true;
+  document.getElementById('sort-asc').classList.add('active');
+  document.getElementById('sort-desc').classList.remove('active');render();});
+document.getElementById('sort-desc').addEventListener('click',()=>{
+  sortAsc=false;
+  document.getElementById('sort-desc').classList.add('active');
+  document.getElementById('sort-asc').classList.remove('active');render();});
+
+// ── SEARCH ──
+
+
+render();
+</script>
+</body>
+</html>
