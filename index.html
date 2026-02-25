@@ -201,7 +201,6 @@ h1{font-family:'Cinzel Decorative',serif;font-size:clamp(24px,5vw,58px);font-wei
 <div class="controls-bar">
   <!-- ROW 1: Tribe filter -->
   <div class="ctrl-row" style="display:flex;justify-content:center;gap:10px;">
-
     <div class="pills" id="tribe-pills">
       <button class="pill active" data-f="All">All</button>
       <button class="pill t-Cila" data-f="Cila">🔵 Cila</button>
@@ -211,7 +210,6 @@ h1{font-family:'Cinzel Decorative',serif;font-size:clamp(24px,5vw,58px);font-wei
   </div>
   <!-- ROW 2: Sort -->
   <div class="ctrl-row" style="display:flex;justify-content:center;gap:10px;">
-
     <div class="pills">
       <select class="sort-select" id="sort-key">
         <option value="default">Default (Tribe)</option>
@@ -268,8 +266,6 @@ h1{font-family:'Cinzel Decorative',serif;font-size:clamp(24px,5vw,58px);font-wei
 
 <script src="photos.js"></script>
 <script>
-// Photo helper — tries Wikipedia Commons first, falls back to a styled placeholder
-// Wikipedia Commons DOES allow hotlinking from external pages
 const WP = "https://upload.wikimedia.org/wikipedia/commons/thumb/";
 const PH = (name,tribe) => {
   const c = tribe==='Cila'?'1A2E1A':tribe==='Kalo'?'2E1A1A':'1A1A2E';
@@ -294,23 +290,25 @@ const players = [
  hometown:"Jersey City, NJ",job:"Registered Nurse",winner:false,
   photo:PHOTOS["cirie"],
  groups:["Micronesia","HeroesVillains","GameChangers","MultiTimers"],
- seasons:[{n:12,s:"Panama",p:"4th"},{n:16,s:"Micronesia",p:"5th"},{n:20,s:"Heroes vs. Villains",p:"8th"},{n:34,s:"Game Changers",p:"17th"}],
- stats:{played:4,days:121,best:"4th (Panama)",icWins:1,idols:0,juryVotes:0},
+ seasons:[{n:12,s:"Panama",p:"4th"},{n:16,s:"Micronesia",p:"3rd"},{n:20,s:"Heroes vs. Villains",p:"17th"},{n:34,s:"Game Changers",p:"6th"}],
+ // CORRECTED: Micronesia 3rd (not 5th), HvV 17th (not 8th), Game Changers 6th (not 17th), icWins 0 (never won an individual immunity challenge)
+ stats:{played:4,days:121,best:"3rd (Micronesia)",icWins:0,idols:0,juryVotes:0},
  life:"Cirie Fields was born and raised in New Jersey, the self-described 'couch potato' who had never gone camping before applying for Survivor on a whim. A registered nurse by trade, she found her calling in taking care of others — both at work and on the island. She is married to H.B. Fields and has three sons. After her four Survivor appearances, she became one of the most beloved figures in reality TV, competed on Big Brother 25, and won the first US season of The Traitors. Off-screen she continues nursing and is a passionate advocate for mental health awareness.",
  videoId:"iyKkNmo6-6c",
  paradeUrl:"https://parade.com/tv/cirie-fields-survivor-50-interview",
- blurb:"Widely regarded as the greatest player to never win. Her legendary social game has carried her deep in every season. In Game Changers, she was eliminated without a single vote cast against her. She also won Season 1 of The Traitors US and competed on Big Brother 25. Season 50 is her fifth time playing."},
+ blurb:"Widely regarded as the greatest player to never win. Her legendary social game has carried her deep in every season — reaching 3rd in Micronesia and 4th in Panama. In Game Changers, she was eliminated without a single vote cast against her. She also won Season 1 of The Traitors US and competed on Big Brother 25. Season 50 is her fifth time playing."},
 
 {id:"ozzy",name:"Ozzy Lusth",nick:"Ozzy",tribe:"Cila",age:44,
  hometown:"Guanajuato, Mexico",job:"Restaurant/Vinyl Bar Owner",winner:false,
   photo:PHOTOS["ozzy"],
  groups:["Micronesia","SouthPacific","GameChangers","MultiTimers"],
  seasons:[{n:13,s:"Cook Islands",p:"2nd"},{n:16,s:"Micronesia",p:"8th"},{n:23,s:"South Pacific",p:"4th"},{n:34,s:"Game Changers",p:"14th"}],
- stats:{played:4,days:128,best:"2nd (Cook Islands)",icWins:21,idols:3,juryVotes:0},
+ // CORRECTED: icWins 7 (career total across all 4 seasons, per verified sources)
+ stats:{played:4,days:128,best:"2nd (Cook Islands)",icWins:7,idols:3,juryVotes:0},
  life:"Oscar 'Ozzy' Lusth was born in Guanajuato, Mexico and raised between Mexico and the United States, developing an extraordinary connection to the outdoors and ocean from a young age. A natural athlete, he built his life around surfing, free diving, and fishing. He has owned and operated restaurants and a vinyl bar. Known for his laid-back charisma and almost supernatural survival skills, Ozzy has become one of the show's most iconic physical players across five seasons spanning nearly two decades.",
  videoId:"iyKkNmo6-6c",
  paradeUrl:"https://parade.com/tv/ozzy-lusth-survivor-50-interview",
- blurb:"One of Survivor's all-time challenge beasts. Set records for individual immunity wins in a single season with 5 in Cook Islands. His fishing ability makes him invaluable at camp, but his reputation makes him a perennial target. Season 50 is his fifth time playing."},
+ blurb:"One of Survivor's all-time challenge beasts with 7 career individual immunity wins across four seasons. Set the single-season record with 5 wins in Cook Islands. His fishing ability makes him invaluable at camp, but his reputation makes him a perennial target. Season 50 is his fifth time playing."},
 
 {id:"emily",name:"Emily Flippen",nick:"Emily",tribe:"Cila",age:30,
  hometown:"Laurel, MD",job:"Investment Analyst",winner:false,
@@ -339,33 +337,36 @@ const players = [
   photo:PHOTOS["rick"],
  groups:["EdgeExtinction"],
  seasons:[{n:38,s:"Edge of Extinction",p:"4th"}],
- stats:{played:1,days:35,best:"4th (Edge of Extinction)",icWins:5,idols:2,juryVotes:0},
+ // CORRECTED: icWins 4 (not 5) — won 4 individual immunities post-re-entry, confirmed by Inside Survivor
+ stats:{played:1,days:35,best:"4th (Edge of Extinction)",icWins:4,idols:2,juryVotes:0},
  life:"Rick Devens spent over a decade as a television news anchor in Macon, Georgia, becoming a familiar and trusted face in his community. He is married with children and known for his quick wit and ability to connect with almost anyone. After his jaw-dropping run on Edge of Extinction, he parlayed his Survivor fame into co-hosting the official CBS Survivor podcast 'On Fire' with Jeff Probst — making him the only former contestant to hold an ongoing official role with the franchise.",
  videoId:"iyKkNmo6-6c",
  paradeUrl:"https://parade.com/tv/rick-devens-survivor-50-interview",
- blurb:"Voted out early, re-entered via Edge of Extinction, then became an unstoppable idol-finding, challenge-winning force. His hilarious confessionals and underdog story made him a fan favorite. He now co-hosts the official Survivor podcast 'On Fire' with Jeff Probst."},
+ blurb:"Voted out early, re-entered via Edge of Extinction, then became an unstoppable idol-finding, challenge-winning force — winning 4 individual immunities post-re-entry. His hilarious confessionals and underdog story made him a fan favorite. He now co-hosts the official Survivor podcast 'On Fire' with Jeff Probst."},
 
 {id:"savannah",name:"Savannah Louie",nick:"Savannah",tribe:"Cila",age:25,
  hometown:"California",job:"Graduate Student",winner:true,
   photo:PHOTOS["savannah"],
  groups:["S49","Winners"],
  seasons:[{n:49,s:"Survivor 49",p:"WINNER 👑"}],
- stats:{played:1,days:26,best:"Winner (S49)",icWins:2,idols:1,juryVotes:7},
+ // CORRECTED: icWins 4 (tied women's record for most IC wins in a single season), juryVotes 5 (5-2-1 vote)
+ stats:{played:1,days:26,best:"Winner (S49)",icWins:4,idols:0,juryVotes:5},
  life:"Savannah Louie is one of the youngest Sole Survivors in recent memory, winning at just 25 years old while still completing her graduate degree. Originally from California, she brought an intense competitive drive and genuine strategic instincts to Season 49. Her story is made even more remarkable by the fact that she agreed to return for Season 50 just two weeks after winning — barely enough time to celebrate before heading back to the island.",
  videoId:"iyKkNmo6-6c",
  paradeUrl:"https://parade.com/tv/savannah-louie-survivor-50-interview",
- blurb:"The most recent Sole Survivor. Savannah won Season 49 and agreed to return just two weeks later — one of the fastest turnarounds in show history. She beat ally Rizo in fire-making, then delivered a compelling Final Tribal performance to earn a 7-1 jury vote."},
+ blurb:"The most recent Sole Survivor. Savannah won Season 49 and agreed to return just two weeks later — one of the fastest turnarounds in show history. She dominated the individual game with 4 immunity wins, tying the all-time women's record, won fire-making, and earned a 5-2-1 jury victory."},
 
 {id:"joe",name:"Joe Hunter",nick:"Joe",tribe:"Cila",age:33,
  hometown:"Texas",job:"Bodyguard / Personal Trainer",winner:false,
   photo:PHOTOS["joe"],
  groups:["S48"],
  seasons:[{n:48,s:"Survivor 48",p:"3rd"}],
- stats:{played:1,days:24,best:"3rd (S48)",icWins:3,idols:0,juryVotes:0},
+ // CORRECTED: icWins 4 (per Fandom: "winning four individual Immunity Challenges"), juryVotes 1 (received 1 jury vote in 5-2-1 vote)
+ stats:{played:1,days:26,best:"3rd (S48)",icWins:4,idols:0,juryVotes:1},
  life:"Joe Hunter is a Texas-based bodyguard and personal trainer whose imposing physical presence masks a deeply empathetic soul. Before Survivor he worked in personal protection and built a reputation as someone who leads with strength but always with compassion. His Season 48 moment supporting castaway Eva Erickson through an autistic episode went viral and introduced him to millions of viewers who had never seen that kind of raw emotional leadership on a reality show.",
  videoId:"iyKkNmo6-6c",
  paradeUrl:"https://parade.com/tv/joe-hunter-survivor-50-interview",
- blurb:"Went viral for compassionately supporting fellow castaway Eva Erickson during an autistic episode on the island. His empathetic leadership and physical strength carried him to 3rd place in Season 48, making him one of the most genuinely liked players in recent memory."},
+ blurb:"Went viral for compassionately supporting fellow castaway Eva Erickson during an autistic episode on the island. Won 4 individual immunity challenges in Season 48 and reached the Final Tribal Council, but couldn't overcome Kyle's strategic argument and finished 3rd."},
 
 // ── KALO ──────────────────────────────────────────────────────────────────────
 {id:"tiffany",name:"Tiffany Ervin",nick:"Tiffany",tribe:"Kalo",age:47,
@@ -395,6 +396,7 @@ const players = [
   photo:PHOTOS["chrissy"],
  groups:[],
  seasons:[{n:35,s:"Heroes v Healers v Hustlers",p:"2nd"}],
+ // icWins:4 confirmed — tied women's record for most IC wins in a season
  stats:{played:1,days:38,best:"2nd (HHH)",icWins:4,idols:0,juryVotes:2},
  life:"Chrissy Hofbeck is a New Jersey actuary who built a distinguished career applying mathematical models to risk assessment. A mother and wife, she balanced a demanding professional life with a fierce competitive streak that she channeled into Survivor. Her analytical mind allowed her to dissect tribal dynamics like probability puzzles, and her physical endurance surprised everyone. She has spoken openly about navigating a male-dominated industry and credits Survivor with helping her find her voice.",
  videoId:"iyKkNmo6-6c",
@@ -406,12 +408,59 @@ const players = [
   photo:PHOTOS["jonathan"],
  groups:[],
  seasons:[{n:42,s:"Survivor 42",p:"4th"}],
- stats:{played:1,days:24,best:"4th (S42)",icWins:9,idols:0,juryVotes:0},
+ // CORRECTED: icWins 2 (not 9) — won exactly 2 individual immunity challenges in S42, per multiple verified sources
+ stats:{played:1,days:26,best:"4th (S42)",icWins:2,idols:0,juryVotes:0},
  life:"Jonathan Young grew up on the Gulf Coast of Alabama where the ocean was his second home. He built his business running beach services — chairs, umbrellas, and water sports — which kept him in peak physical condition year-round. A deeply competitive and ambitious person, he applied to Survivor with one goal: to prove he was the best physical player in the game's history. His Survivor 42 performance nearly made that argument for him. Outside the game, he's known for his big heart and devotion to his community.",
  videoId:"iyKkNmo6-6c",
  paradeUrl:"https://parade.com/tv/jonathan-young-survivor-50-interview",
- blurb:"Perhaps the most physically dominant New Era player. Won 9 challenges in a single season and practically single-handedly carried his tribe through the pre-merge. His raw athletic ability is unmatched, but his threat level will be enormous from day one."},
+ blurb:"Perhaps the most physically imposing New Era player. He practically single-handedly carried his tribe through the pre-merge, winning 2 individual immunity challenges and dominating tribally. His raw athletic ability is unmatched, but his threat level will be enormous from day one."},
 
+{id:"charlie",name:"Charlie Davis",nick:"Charlie",tribe:"Kalo",age:24,
+ hometown:"Boston, MA",job:"Law Student",winner:false,
+  photo:PHOTOS["charlie"],
+ groups:[],
+ seasons:[{n:46,s:"Survivor 46",p:"2nd"}],
+ stats:{played:1,days:26,best:"2nd (S46)",icWins:3,idols:0,juryVotes:5},
+ life:"Charlie Davis was a law student at Boston College when he competed on Survivor 46 at just 24 years old, making him one of the youngest and most strategically mature players of the New Era. He grew up in the Boston area with a love of competition and debate. His legal training gave him a natural edge in constructing arguments and anticipating opponents' moves. Despite narrowly missing the win, his game was so impressive that producers immediately marked him as a future returnee.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/charlie-davis-survivor-50-interview",
+ blurb:"Runner-up of Survivor 46, Charlie orchestrated much of the mid-game and earned five jury votes, narrowly losing to Kenzie Petty. His strategic clarity and social dexterity at just 24 years old marked him as a future force in the game."},
+
+{id:"dee",name:"Dee Valladares",nick:"Dee",tribe:"Kalo",age:27,
+ hometown:"Miami, FL",job:"Entrepreneur",winner:true,
+  photo:PHOTOS["dee"],
+ groups:["Winners"],
+ seasons:[{n:45,s:"Survivor 45",p:"WINNER 👑"}],
+ stats:{played:1,days:26,best:"Winner (S45)",icWins:3,idols:0,juryVotes:7},
+ life:"Dee Valladares was born to Cuban immigrant parents in Miami, Florida, and grew up with an entrepreneurial spirit forged by watching her family build a life from nothing. She launched her own business ventures in her early twenties and brought that same drive and fire to Survivor 45, where she completely dominated the game. Dee is known for her bold personality, deep loyalty to chosen allies, and a competitive intensity that she credits to her upbringing and cultural values.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/dee-valladares-survivor-50-interview",
+ blurb:"Winner of Survivor 45 and widely considered one of the best winners of the New Era. Dee built the iron-clad Reba Four alliance and exercised near-total control of the game from start to finish, earning a dominant 7-1 jury vote. Fiery, enthusiastic, and deeply strategic."},
+
+{id:"mike",name:"Mike White",nick:"Mike",tribe:"Kalo",age:54,
+ hometown:"California",job:"Writer / Director (The White Lotus)",winner:false,
+  photo:PHOTOS["mike"],
+ groups:["DavidGoliath"],
+ seasons:[{n:37,s:"David vs. Goliath",p:"2nd"}],
+ stats:{played:1,days:38,best:"2nd (David vs. Goliath)",icWins:2,idols:0,juryVotes:5},
+ life:"Mike White was already a successful Hollywood screenwriter and actor (School of Rock, Enlightened) when he appeared on Survivor: David vs. Goliath in 2018. After the show, his career exploded: he created, wrote, and directed The White Lotus for HBO, winning multiple Emmy Awards and becoming one of the most celebrated showrunners in television. Openly gay and deeply thoughtful, Mike has been candid about his relationship with his father Mel White (a prominent LGBTQ+ activist) and his own spiritual journey. He is almost certainly the most famous person ever cast on Survivor.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/mike-white-survivor-50-interview",
+ blurb:"Already known from School of Rock when he played David vs. Goliath in 2018, Mike is now one of Hollywood's biggest names as the creator of The White Lotus. His selfless social game and subtle strategy made him a beloved runner-up. Likely the most famous person ever cast on Survivor."},
+
+{id:"kamilla",name:"Kamilla Karthigesu",nick:"Kamilla",tribe:"Kalo",age:29,
+ hometown:"Canada",job:"Content Creator",winner:false,
+  photo:PHOTOS["kamilla"],
+ groups:["S48"],
+ seasons:[{n:48,s:"Survivor 48",p:"4th"}],
+ // Kamilla finished 4th (eliminated at fire-making). icWins:2 confirmed (won immunity twice)
+ stats:{played:1,days:26,best:"4th (S48)",icWins:2,idols:0,juryVotes:0},
+ life:"Kamilla Karthigesu is a Canadian content creator of Sri Lankan Tamil descent who built a social media presence around lifestyle, travel, and authentic storytelling before competing on Survivor 48. She brought a calm, observational energy to the game that let her navigate conflict without becoming a target. Her composed demeanor and genuine likability helped carry her to the final four, where she was eliminated in the fire-making challenge despite never receiving a single vote against her all season.",
+ videoId:"iyKkNmo6-6c",
+ paradeUrl:"https://parade.com/tv/kamilla-karthigesu-survivor-50-interview",
+ blurb:"Made it to the final four of Survivor 48 through sharp social gameplay and an ability to stay out of the crosshairs — she received zero votes against her all season. Eliminated at fire-making. Her calm, measured approach and secret alliance with Kyle Fraser made her one of the season's most strategic players."},
+
+// ── VATU ──────────────────────────────────────────────────────────────────────
 {id:"genevieve",name:"Genevieve Mushaluk",nick:"Genevieve",tribe:"Vatu",age:34,
  hometown:"Winnipeg, Canada",job:"Lawyer",winner:false,
   photo:PHOTOS["genevieve"],
@@ -428,11 +477,12 @@ const players = [
   photo:PHOTOS["kyle"],
  groups:["S48","Winners"],
  seasons:[{n:48,s:"Survivor 48",p:"WINNER 👑"}],
- stats:{played:1,days:26,best:"Winner (S48)",icWins:4,idols:1,juryVotes:6},
+ // CORRECTED: juryVotes 5 (not 6) — Kyle won 5-2-1
+ stats:{played:1,days:26,best:"Winner (S48)",icWins:4,idols:1,juryVotes:5},
  life:"Kyle Fraser is a Brooklyn-based defense attorney who grew up navigating tough environments that sharpened his instincts for reading people and thinking on his feet. His legal career built the persuasive skills and emotional control that translated perfectly to Survivor's Final Tribal Council format. He won Season 48 through a combination of physical dominance and composed social maneuvering, impressing a jury that respected both his game and his character.",
  videoId:"iyKkNmo6-6c",
  paradeUrl:"https://parade.com/tv/kyle-fraser-survivor-50-interview",
- blurb:"The Season 48 Sole Survivor. Kyle's combination of physical dominance and level-headed strategic play earned him a strong jury victory. He enters Season 50 as a recent winner with an immediate target, but has proven he has all the tools to navigate it."},
+ blurb:"The Season 48 Sole Survivor. Kyle's combination of physical dominance and level-headed strategic play earned him a strong 5-2-1 jury victory. He enters Season 50 as a recent winner with an immediate target, but has proven he has all the tools to navigate it."},
 
 {id:"q",name:"Q Burdette",nick:"Q",tribe:"Vatu",age:31,
  hometown:"Germantown, TN",job:"Real Estate Broker",winner:false,
@@ -467,28 +517,17 @@ const players = [
  paradeUrl:"https://parade.com/tv/rizo-velovic-survivor-50-interview",
  blurb:"Lost the fire-making challenge to close ally Savannah in the Season 49 finale, becoming the final jury member. Had just two weeks between seasons before diving back in. His alliance — and now rivalry — with Savannah Louie is one of Season 50's most compelling storylines."},
 
-// ── VATU ──────────────────────────────────────────────────────────────────────
-{id:"charlie",name:"Charlie Davis",nick:"Charlie",tribe:"Kalo",age:24,
- hometown:"Boston, MA",job:"Law Student",winner:false,
-  photo:PHOTOS["charlie"],
- groups:[],
- seasons:[{n:46,s:"Survivor 46",p:"2nd"}],
- stats:{played:1,days:26,best:"2nd (S46)",icWins:3,idols:0,juryVotes:5},
- life:"Charlie Davis was a law student at Boston College when he competed on Survivor 46 at just 24 years old, making him one of the youngest and most strategically mature players of the New Era. He grew up in the Boston area with a love of competition and debate. His legal training gave him a natural edge in constructing arguments and anticipating opponents' moves. Despite narrowly missing the win, his game was so impressive that producers immediately marked him as a future returnee.",
- videoId:"iyKkNmo6-6c",
- paradeUrl:"https://parade.com/tv/charlie-davis-survivor-50-interview",
- blurb:"Runner-up of Survivor 46, Charlie orchestrated much of the mid-game and earned five jury votes, narrowly losing to Kenzie Petty. His strategic clarity and social dexterity at just 24 years old marked him as a future force in the game."},
-
 {id:"colby",name:"Colby Donaldson",nick:"Colby",tribe:"Vatu",age:51,
  hometown:"Austin, TX",job:"Rancher / Welder",winner:false,
   photo:PHOTOS["colby"],
  groups:["HeroesVillains","MultiTimers"],
  seasons:[{n:2,s:"The Australian Outback",p:"2nd"},{n:8,s:"All-Stars",p:"11th"},{n:20,s:"Heroes vs. Villains",p:"9th"}],
- stats:{played:3,days:98,best:"2nd (Australian Outback)",icWins:9,idols:0,juryVotes:1},
+ // CORRECTED: icWins 5 (career individual immunity wins across 3 seasons, not 9)
+ stats:{played:3,days:98,best:"2nd (Australian Outback)",icWins:5,idols:0,juryVotes:1},
  life:"Colby Donaldson grew up in Christoval, Texas, raised with a deep connection to ranching, the outdoors, and the values of hard work and loyalty. The original Survivor golden boy became a household name after Australian Outback aired in 2001, parlaying his fame into a TV hosting career including work on Top Shot. He is a skilled welder and rancher who returned to his Texas roots after his TV years. At 51, he arrives on Season 50 as a living legend who younger players have watched since childhood.",
  videoId:"iyKkNmo6-6c",
  paradeUrl:"https://parade.com/tv/colby-donaldson-survivor-50-interview",
- blurb:"The original Survivor golden boy. Won a then-record 5 individual immunities in The Australian Outback and was the show's first true icon. His famous decision to take Tina over Keith to the finals remains one of Survivor's most debated strategic choices."},
+ blurb:"The original Survivor golden boy. Won a then-record 5 individual immunities in The Australian Outback (a single-season record he still shares) and was the show's first true icon. His famous decision to take Tina over Keith to the finals remains one of Survivor's most debated strategic choices."},
 
 {id:"stephenie",name:"Stephenie LaGrossa Kendrick",nick:"Stephenie",tribe:"Vatu",age:45,
  hometown:"Dunedin, FL",job:"Pharmaceutical Sales",winner:false,
@@ -496,21 +535,10 @@ const players = [
  groups:["HeroesVillains","MultiTimers"],
  seasons:[{n:10,s:"Palau",p:"8th"},{n:11,s:"Guatemala",p:"2nd"},{n:20,s:"Heroes vs. Villains",p:"17th"}],
  stats:{played:3,days:62,best:"2nd (Guatemala)",icWins:7,idols:0,juryVotes:1},
- life:"Stephenie LaGrossa grew up in Philadelphia and was working in pharmaceutical sales when she first applied to Survivor. Fiercely athletic and mentally tough, she became one of the show's most beloved underdogs after her extraordinary solo run in Palau. She later married fellow NFL player Kyle Kendrick and started a family. Off-screen she has maintained a strong connection to the Survivor community and appeared on The Traitors US Season 1 with fellow castaway Cirie Fields.",
+ life:"Stephenie LaGrossa grew up in Philadelphia and was working in pharmaceutical sales when she first applied to Survivor. Fiercely athletic and mentally tough, she became one of the show's most beloved underdogs after her extraordinary solo run in Palau. She later married fellow MLB pitcher Kyle Kendrick and started a family. Off-screen she has maintained a strong connection to the Survivor community and appeared on The Traitors US Season 1 with fellow castaway Cirie Fields.",
  videoId:"iyKkNmo6-6c",
  paradeUrl:"https://parade.com/tv/stephenie-lagrossa-kendrick-survivor-50-interview",
  blurb:"A Survivor legend who became the last surviving member of the decimated Ulong tribe in Palau, losing challenge after challenge until she was completely alone. Returned for Guatemala and fought all the way to 2nd place. Also competed on The Traitors US Season 1 with Cirie."},
-
-{id:"dee",name:"Dee Valladares",nick:"Dee",tribe:"Kalo",age:27,
- hometown:"Miami, FL",job:"Entrepreneur",winner:true,
-  photo:PHOTOS["dee"],
- groups:["Winners"],
- seasons:[{n:45,s:"Survivor 45",p:"WINNER 👑"}],
- stats:{played:1,days:26,best:"Winner (S45)",icWins:3,idols:0,juryVotes:7},
- life:"Dee Valladares was born to Cuban immigrant parents in Miami, Florida, and grew up with an entrepreneurial spirit forged by watching her family build a life from nothing. She launched her own business ventures in her early twenties and brought that same drive and fire to Survivor 45, where she completely dominated the game. Dee is known for her bold personality, deep loyalty to chosen allies, and a competitive intensity that she credits to her upbringing and cultural values.",
- videoId:"iyKkNmo6-6c",
- paradeUrl:"https://parade.com/tv/dee-valladares-survivor-50-interview",
- blurb:"Winner of Survivor 45 and widely considered one of the best winners of the New Era. Dee built the iron-clad Reba Four alliance and exercised near-total control of the game from start to finish, earning a dominant 7-1 jury vote. Fiery, enthusiastic, and deeply strategic."},
 
 {id:"aubry",name:"Aubry Bracco",nick:"Aubry",tribe:"Vatu",age:39,
  hometown:"Hampton Falls, NH",job:"Content Creator",winner:false,
@@ -522,29 +550,6 @@ const players = [
  videoId:"iyKkNmo6-6c",
  paradeUrl:"https://parade.com/tv/aubry-bracco-survivor-50-interview",
  blurb:"A deeply cerebral strategist who controlled much of Kaôh Rōng only to narrowly lose at Final Tribal. Her emotional intelligence and ability to read social dynamics make her dangerous. Her resumé and reputation have historically made her a major target on returnee seasons."},
-
-{id:"mike",name:"Mike White",nick:"Mike",tribe:"Kalo",age:54,
- hometown:"California",job:"Writer / Director (The White Lotus)",winner:false,
-  photo:PHOTOS["mike"],
- groups:["DavidGoliath"],
- seasons:[{n:37,s:"David vs. Goliath",p:"2nd"}],
- stats:{played:1,days:38,best:"2nd (David vs. Goliath)",icWins:2,idols:0,juryVotes:5},
- life:"Mike White was already a successful Hollywood screenwriter and actor (School of Rock, Enlightened) when he appeared on Survivor: David vs. Goliath in 2018. After the show, his career exploded: he created, wrote, and directed The White Lotus for HBO, winning multiple Emmy Awards and becoming one of the most celebrated showrunners in television. Openly gay and deeply thoughtful, Mike has been candid about his relationship with his father Mel White (a prominent LGBTQ+ activist) and his own spiritual journey. He is almost certainly the most famous person ever cast on Survivor.",
- videoId:"iyKkNmo6-6c",
- paradeUrl:"https://parade.com/tv/mike-white-survivor-50-interview",
- blurb:"Already known from School of Rock when he played David vs. Goliath in 2018, Mike is now one of Hollywood's biggest names as the creator of The White Lotus. His selfless social game and subtle strategy made him a beloved runner-up. Likely the most famous person ever cast on Survivor."},
-
-{id:"kamilla",name:"Kamilla Karthigesu",nick:"Kamilla",tribe:"Kalo",age:29,
- hometown:"Canada",job:"Content Creator",winner:false,
-  photo:PHOTOS["kamilla"],
- groups:["S48"],
- seasons:[{n:48,s:"Survivor 48",p:"4th"}],
- stats:{played:1,days:24,best:"4th (S48)",icWins:2,idols:0,juryVotes:0},
- life:"Kamilla Karthigesu is a Canadian content creator of Sri Lankan Tamil descent who built a social media presence around lifestyle, travel, and authentic storytelling before competing on Survivor 48. She brought a calm, observational energy to the game that let her navigate conflict without becoming a target. Her composed demeanor and genuine likability helped carry her to 4th place, and her Season 48 experience made her one of the most requested returnees by the fanbase.",
- videoId:"iyKkNmo6-6c",
- paradeUrl:"https://parade.com/tv/kamilla-karthigesu-survivor-50-interview",
- blurb:"Made it to the final four of Survivor 48 through sharp social gameplay and an ability to stay out of the crosshairs. Her calm, measured approach and reading of tribal dynamics helped her outlast most of her competition in her debut season."},
-
 
 ];;
 
@@ -562,7 +567,7 @@ function cardStatLabel(p){
   if(sortKey==='age') return `${p.tribe} · Age: ${p.age}`;
   if(sortKey==='days') return `${p.tribe} · ${p.stats.days} total days`;
   if(sortKey==='played') return `${p.tribe} · Played ${p.stats.played}×`;
-  if(sortKey==='icWins') return `${p.tribe} · ${p.stats.icWins} challenge wins`;
+  if(sortKey==='icWins') return `${p.tribe} · ${p.stats.icWins} IC wins`;
   if(sortKey==='idols') return `${p.tribe} · ${p.stats.idols} idols found`;
   if(sortKey==='juryVotes') return `${p.tribe} · ${p.stats.juryVotes} jury votes`;
   return `${p.tribe} · ${p.stats.played}× · ${p.stats.days} days`;
@@ -583,8 +588,7 @@ function sortVal(p){
 function cardVisible(p){
   const tOk = tribeFilter==='All' || p.tribe===tribeFilter;
   const gOk = groupFilter==='All' || matchGroup(p, groupFilter);
-  const qOk = true;
-  return tOk && gOk && qOk;
+  return tOk && gOk;
 }
 
 function matchGroup(p, g){
@@ -628,14 +632,11 @@ function render(){
     const d=document.createElement('div');
     d.className='no-results';d.textContent='No castaways match.';grid.appendChild(d);
   }
-
 }
 
 let currentPlayerIndex = -1;
 
-function getVisiblePlayers(){
-  return filtered;
-}
+function getVisiblePlayers(){ return filtered; }
 
 function openModal(p){
   const vis = getVisiblePlayers();
@@ -726,9 +727,6 @@ document.addEventListener('keydown',e=>{
     if(e.key==='ArrowRight')navigateModal(1);
   }
 });
-document.getElementById('mclose').addEventListener('click',closeModal);
-document.getElementById('overlay').addEventListener('click',e=>{if(e.target===document.getElementById('overlay'))closeModal();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
 // ── TRIBE FILTER ──
 document.getElementById('tribe-pills').addEventListener('click',e=>{
@@ -756,9 +754,6 @@ document.getElementById('sort-desc').addEventListener('click',()=>{
   sortAsc=false;
   document.getElementById('sort-desc').classList.add('active');
   document.getElementById('sort-asc').classList.remove('active');render();});
-
-// ── SEARCH ──
-
 
 render();
 </script>
